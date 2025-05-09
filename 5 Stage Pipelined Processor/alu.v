@@ -1,22 +1,8 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 
-// Design Name: 
-// Module Name: alu
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision
-// Additional Comments:
-// 
+// Design Name: ALU Unit
+// Module Name: ALU
+// Project Name: Pipelined MIPS Proc
 //////////////////////////////////////////////////////////////////////////////////
 
 //Defining control signals
@@ -41,9 +27,9 @@
  module ALU(input [31:0]BusA, 	//32 bit input operand A
  			input [31:0]BusB, //shift,	//32 bit input operand B
 			input [3:0]ALUCtrl, //4 bit control signal
-			input [4:0]shmt,      //for shift operations
+			input [4:0]shmt,    //for shift operations
 			output reg [31:0]BusW,  //32 bit output 
-			output reg Zero);		//Zero signal if the output is 0
+			output reg Zero);   //Zero signal if the output is 0
 			
 	wire less, sra, temp, less1;
 	wire signed [31:0] signed_BusA, signed_BusB,shift;
@@ -62,10 +48,7 @@
 			`OR  : BusW <= BusA | BusB;
 			`ADD : BusW <= BusA + BusB;
 			`SLL : BusW <= BusB << shmt;
-			//`SLL : BusW <= BusB << BusA;
 			`SUB : BusW <= BusA - BusB;
-			//`SRL : BusW <= BusB >> BusA;
-			//`SRL : BusW <= BusB >> shmt;
 			`SRL : BusW <= shift;
 			`SLT : BusW <= less;
 			`ADDU: BusW <= BusA + BusB;
@@ -73,9 +56,6 @@
 			`XOR : BusW <= BusA ^ BusB;
 			`SLTU: BusW <= less1;
 			`NOR : BusW <= ~(BusA | BusB);
-			//`SRA : BusW <= ((BusB & 32'h80000000) == 0 ? (BusB >> shmt) : ( (BusB >> shmt) | (32'hffffffff << (32'd32 - shmt))));
-			//`SRA : BusW <= ((BusB & 32'h80000000) == 0 ? shift : ( shift | (32'hffffffff << (32'd32 - shmt))));
-			//`SRA : BusW <= ((BusB & 32'h80000000) == 0 ? shift : ( shift | (32'hffffffff << (32'd32 - shmt))));
 			`SRA : BusW <= $signed(BusB) >>>shmt;
 			`LUI : BusW <= {BusB,16'b0};
 			default : BusW <= 0;
