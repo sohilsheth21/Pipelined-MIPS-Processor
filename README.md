@@ -1,6 +1,6 @@
 # Pipelined-MIPS-Processor
 
-This repository contains the implementation of a 32-bit MIPS processor written in Verilog as part of the ECEN651 course project. The design is the classic 5-stage pipeline model and includes mechanisms to handle control and data hazards, enabling efficient instruction throughput.
+This repository contains the RTL implementation of a 32-bit MIPS processor written in Verilog as part of the ECEN651 course project at Texas A&M. The design is the classic 5-stage pipeline model and includes mechanisms to handle control and data hazards, enabling efficient instruction throughput.
 
 ---
 
@@ -39,6 +39,7 @@ This repository contains the implementation of a 32-bit MIPS processor written i
 
 ## 📌 Notes
 
+- First implemented the single cycle processor and then moved to the pipelined processor design.
 - All modules were simulated and tested individually before integration.
 - The processor correctly handles data/control hazards and forwarding logic.
 ---
